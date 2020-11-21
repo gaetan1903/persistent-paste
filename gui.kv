@@ -1,0 +1,73 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+Screen:
+	BoxLayout:
+		orientation: 'vertical'
+	    MDToolbar:
+	    	id: toolbar
+	        title : "Pesrsistent PASTE"
+	        elevation : 10
+	        pos_hint : {'top':1}
+
+
+	    NavigationLayout:
+	        x: toolbar.height
+
+	        ScreenManager:
+	            id: screen_manager
+
+	            Screen:
+	                name : "principal"
+
+	                MDCard:
+	                    size_hint: .8, .8
+	                    pos_hint: {"center_x": .5, "center_y": .5}
+	                    padding: "30dp"
+
+	                    MDBoxLayout:
+	                    	adaptive_height: True
+                            pos_hint: {"center_x": .5, "center_y": .5}
+	                    	spacing: 20
+	                    	orientation: 'vertical'
+
+
+	                    	MDLabel:
+                                text: "Entrer votre texte à copier"
+                                halign: "center"
+                                theme_text_color: "Custom"
+                                text_color: get_color_from_hex('#008080')
+                                font_size: '16sp'
+
+
+		                    MDBoxLayout:
+		                    	id: inputDiv
+		                        orientation: 'vertical'
+		                        adaptive_height: True
+		                        spacing: 15
+
+			                    MDBoxLayout:
+			                    	orientation: 'horizontal'
+			                    	adaptive_height: True
+			                    	spacing: 20
+
+			                        MDTextField:
+			                        	id: paste
+			                            hint_text: "Texte 1"
+			                            size_hint_x : .75
+
+			                        MDLabel:
+			                        	text: 'Super + Shift'
+			                        	theme_text_color: "Custom"
+		                                text_color: get_color_from_hex('#008080')
+		                                font_size: '13sp'
+			                        	halign: "right"
+			                        	size_hint_x : .25
+
+
+	                        MDRaisedButton:
+	                            text: "Enregistrer"
+	                            md_bg_color: self.theme_cls.primary_color
+	                            pos_hint: {"center_x": .5, "center_y": .5}
+	                            on_release: app.save()
+
+
+		                        
