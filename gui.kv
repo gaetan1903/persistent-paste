@@ -50,12 +50,48 @@ Screen:
 			                    	spacing: 20
 
 			                        MDTextField:
-			                        	id: paste
-			                            hint_text: "Texte"
+			                        	id: paste_1
+			                            hint_text: "Texte 1"
 			                            size_hint_x : .75
 
 			                        MDLabel:
-			                        	text: 'Super + Shift'
+			                        	text: 'Ctrl + Shift + 1'
+			                        	theme_text_color: "Custom"
+		                                text_color: get_color_from_hex('#008080')
+		                                font_size: '13sp'
+			                        	halign: "right"
+			                        	size_hint_x : .25
+
+			                    MDBoxLayout:
+			                    	orientation: 'horizontal'
+			                    	adaptive_height: True
+			                    	spacing: 20
+
+			                        MDTextField:
+			                        	id: paste_2
+			                            hint_text: "Texte 2"
+			                            size_hint_x : .75
+
+			                        MDLabel:
+			                        	text: 'Ctrl + Shift + 2'
+			                        	theme_text_color: "Custom"
+		                                text_color: get_color_from_hex('#008080')
+		                                font_size: '13sp'
+			                        	halign: "right"
+			                        	size_hint_x : .25
+
+			                    MDBoxLayout:
+			                    	orientation: 'horizontal'
+			                    	adaptive_height: True
+			                    	spacing: 20
+
+			                        MDTextField:
+			                        	id: paste_3
+			                            hint_text: "Texte 3"
+			                            size_hint_x : .75
+
+			                        MDLabel:
+			                        	text: 'Ctrl + Shift + 3'
 			                        	theme_text_color: "Custom"
 		                                text_color: get_color_from_hex('#008080')
 		                                font_size: '13sp'
@@ -68,6 +104,3 @@ Screen:
 	                            md_bg_color: self.theme_cls.primary_color
 	                            pos_hint: {"center_x": .5, "center_y": .5}
 	                            on_release: app.save()
-
-
-		                        

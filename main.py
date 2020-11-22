@@ -1,8 +1,8 @@
 import os, sys, pickle, signal
 from kivy.config import Config
 Config.set('graphics', 'resizable', '0')
-Config.set('graphics', 'width', '600')
-Config.set('graphics', 'height', '360')
+Config.set('graphics', 'width', '660')
+Config.set('graphics', 'height', '460')
 #--------------------------
 from kivy.lang import Builder 
 from kivymd.app import MDApp
@@ -13,12 +13,16 @@ from pynput.keyboard import Key, Controller
 from threading import Thread
 
 # Le combinaison a voir
-COMBINATION = {keyboard.Key.cmd, keyboard.Key.shift}
+COMBINATION = [
+    {keyboard.Key.ctrl, keyboard.Key.shift, keyboard.KeyCode.from_char('1')},
+    {keyboard.Key.ctrl, keyboard.Key.shift, keyboard.KeyCode.from_char('2')},
+    {keyboard.Key.ctrl, keyboard.Key.shift, keyboard.KeyCode.from_char('3')},
+]
 
 current = set()
 clavier = Controller()
 _listener = None
-_ecoute = ""
+_ecoute = ["", "", ""]
 
 
 
@@ -33,12 +37,22 @@ class Ecoute(Thread):
 
 
     def on_press(self, key):
-        if key in COMBINATION:
+
+        if key in COMBINATION[0]:
             current.add(key)
-            if all(k in current for k in COMBINATION):
-                print('All modifiers active!')
-                global _ecoute
-                clavier.type(_ecoute)
+            if all(k in current for k in COMBINATION[0]):
+                clavier.type(_ecoute[0])
+
+        elif key in COMBINATION[1]:
+            current.add(key)
+            if all(k in current for k in COMBINATION[1]):
+                clavier.type(_ecoute[1])
+
+        elif key in COMBINATION[2]:
+            current.add(key)
+            if all(k in current for k in COMBINATION[2]):
+                clavier.type(_ecoute[2])
+
 
 
     def on_release(self, key):
@@ -49,7 +63,7 @@ class Ecoute(Thread):
 
 
 
-class PersistentPASS(MDApp):
+class PersistentPASTE(MDApp):
     def __init__(self):
     	MDApp.__init__(self)
     	with open('gui.kv', encoding='utf-8') as f:
@@ -63,8 +77,8 @@ class PersistentPASS(MDApp):
 
     def save(self):
         global _ecoute
-        _ecoute = self.GUI.ids.paste.text
-
+        for i in range(3):
+            _ecoute[i] = self.GUI.ids[f'paste_{i+1}'].text
 
     def on_request_close(self, *args):
         ecoute.listener.stop()
@@ -76,7 +90,10 @@ def getPid():
     if os.path.isfile('__pid'):
         with open('__pid', 'rb') as _pid:
             pid = pickle.load(_pid)
-        os.kill(pid, signal.SIGSTOP)
+        try:
+            os.kill(pid, signal.SIGINT)
+        except Exception as err:
+            print(err) 
 
 
 def setPid():
@@ -91,4 +108,5 @@ if __name__ == '__main__':
     setPid()
     ecoute = Ecoute()
     ecoute.start()
-    PersistentPASS().run()
+    PersistentPASTE().run()
+
