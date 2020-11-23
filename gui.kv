@@ -4,9 +4,10 @@ Screen:
 		orientation: 'vertical'
 	    MDToolbar:
 	    	id: toolbar
-	        title : "Pesrsistent PASTE"
+	        title : "Persistent PASTE"
 	        elevation : 10
 	        pos_hint : {'top':1}
+	        right_action_items: [["menu", lambda x: x]]
 
 
 	    NavigationLayout:
@@ -31,7 +32,7 @@ Screen:
 
 
 	                    	MDLabel:
-                                text: "Entrer votre texte à copier"
+                                text: "Entrer vos textes à coller"
                                 halign: "center"
                                 theme_text_color: "Custom"
                                 text_color: get_color_from_hex('#008080')

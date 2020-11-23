@@ -6,6 +6,7 @@ Config.set('graphics', 'height', '460')
 #--------------------------
 from kivy.lang import Builder 
 from kivymd.app import MDApp
+from kivymd.uix.dialog import MDDialog
 #--------------------------
 
 from pynput import keyboard
@@ -79,10 +80,28 @@ class PersistentPASTE(MDApp):
         global _ecoute
         for i in range(3):
             _ecoute[i] = self.GUI.ids[f'paste_{i+1}'].text
+        with open("__data", "wb") as f:
+            pickle.dump(_ecoute, f)
 
-    def on_request_close(self, *args):
-        ecoute.listener.stop()
-        sys.exit(1)
+        MDDialog(
+            title="Succes",
+            text="Texte mise à jour",
+            radius=[20, 7, 20, 7],
+        ).open()
+
+
+    def on_start(self):
+        if os.path.isfile('__data'):
+            with open("__data", "rb") as f:
+                try: 
+                    data = pickle.load(f)
+                    global _ecoute
+                    for i in range(3):
+                        _ecoute[i] = data[i]
+                        self.GUI.ids[f'paste_{i+1}'].text = data[i]
+                except: 
+                    pass
+                
 
 
 
@@ -102,11 +121,9 @@ def setPid():
 
 
 
-
 if __name__ == '__main__':
     getPid()
     setPid()
     ecoute = Ecoute()
     ecoute.start()
     PersistentPASTE().run()
-
