@@ -1,6 +1,14 @@
 # persistent-paste
 quick paste your passwords or others text EVERYWHERE
 
+[![Linux](https://img.shields.io/badge/Linux-yes-teal.svg)](#README)
+[![Windows](https://img.shields.io/badge/Windows-yes-red.svg)](#README)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](#README)
+[![Version](https://img.shields.io/badge/Version-0.1-teal)](github.com/FoyerSociety/GestionFoyer/releases)
+
+
+----------------------------------------------------
+
 <img align="center" src="https://github.com/gaetan1903/persistent-paste/blob/main/preview/scr_1.png">
 
 ## INSTALLATION
@@ -9,7 +17,7 @@ quick paste your passwords or others text EVERYWHERE
  
     python3 -m pip install -r linux_requirements.txt
 
-   *dependance* : __xclip__
+   *Other dependance* : __[xclip](https://github.com/astrand/xclip)__
     
 ------------------------------------------------
 
@@ -20,7 +28,7 @@ quick paste your passwords or others text EVERYWHERE
 
 ## RUN 
 
-`python main.py`
+    python main.py
 
 
 ## FEATURES (NEED CONTRIBUTIONS)
