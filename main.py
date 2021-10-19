@@ -89,6 +89,15 @@ class PersistentPASTE(MDApp):
             radius=[20, 7, 20, 7],
         ).open()
 
+    def showpass(self, btn_num):
+        try:
+            state = self.root.ids[f'paste_{btn_num}'].password
+            if btn_num:
+                self.root.ids[f'paste_{btn_num}'].password = not state
+                self.root.ids[f'eye_btn_{btn_num}'].icon = "eye-off" if state else "eye"
+        except:
+            pass
+
 
     def on_start(self):
         if os.path.isfile('__data'):

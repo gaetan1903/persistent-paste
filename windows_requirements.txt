@@ -6,4 +6,4 @@ kivy.deps.glew --extra-index-url https://kivy.org/downloads/packages/simple/
 kivy
 https://github.com/kivymd/KivyMD/archive/master.zip
 Pillow
-pyinput
+pynput
