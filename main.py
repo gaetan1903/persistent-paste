@@ -95,8 +95,6 @@ class PersistentPASTE(MDApp):
             if btn_num:
                 self.root.ids[f'paste_{btn_num}'].password = not state
                 self.root.ids[f'eye_btn_{btn_num}'].icon = "eye-off" if state else "eye"
-            else :
-                pass 
         except:
             pass
 
