@@ -54,6 +54,17 @@ Screen:
 			                        	id: paste_1
 			                            hint_text: "Texte 1"
 			                            size_hint_x : .75
+										password: True
+
+									MDIconButton:
+										id: eye_btn_1 
+										icon: "eye"
+										pos_hint: {"center_x": .5, "center_y": .5}
+										theme_text_color: "Custom"
+										user_font_size: "20sp"
+										text_color: get_color_from_hex('#008080')
+										on_release : app.showpass(1)
+
 
 			                        MDLabel:
 			                        	text: 'Ctrl + Shift + 1'
@@ -72,6 +83,16 @@ Screen:
 			                        	id: paste_2
 			                            hint_text: "Texte 2"
 			                            size_hint_x : .75
+										password: True
+
+									MDIconButton:
+										id: eye_btn_2 										
+										icon: "eye"
+										pos_hint: {"center_x": .5, "center_y": .5}
+										theme_text_color: "Custom"
+										user_font_size: "20sp"
+										text_color: get_color_from_hex('#008080')
+										on_release : app.showpass(2)
 
 			                        MDLabel:
 			                        	text: 'Ctrl + Shift + 2'
@@ -90,6 +111,16 @@ Screen:
 			                        	id: paste_3
 			                            hint_text: "Texte 3"
 			                            size_hint_x : .75
+										password: True
+
+									MDIconButton:
+										id: eye_btn_3 
+										icon: "eye"
+										pos_hint: {"center_x": .5, "center_y": .5}
+										theme_text_color: "Custom"
+										user_font_size: "20sp"
+										text_color: get_color_from_hex('#008080')
+										on_release : app.showpass(3)
 
 			                        MDLabel:
 			                        	text: 'Ctrl + Shift + 3'
@@ -105,3 +136,4 @@ Screen:
 	                            md_bg_color: self.theme_cls.primary_color
 	                            pos_hint: {"center_x": .5, "center_y": .5}
 	                            on_release: app.save()
+
