@@ -2,9 +2,9 @@
 quick paste your passwords or others text EVERYWHERE
 
 [![Linux](https://img.shields.io/badge/Linux-yes-teal.svg)](#README)
-[![Windows](https://img.shields.io/badge/Windows-yes-red.svg)](#README)
+[![Windows](https://img.shields.io/github/labels/gaetan1903/persistent-paste/help%20wanted?style=flat-square)](https://github.com/gaetan1903/persistent-paste/issues/3)
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](#README)
-[![Version](https://img.shields.io/badge/Version-0.1-teal)](github.com/FoyerSociety/GestionFoyer/releases)
+[![Version](https://img.shields.io/badge/Version-0.1.1-teal)](https://github.com/gaetan1903/persistent-paste/releases)
 
 
 ----------------------------------------------------

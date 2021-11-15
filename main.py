@@ -26,16 +26,13 @@ _listener = None
 _ecoute = ["", "", ""]
 
 
-
 class Ecoute(Thread):
     def __init__(self):
         Thread.__init__(self)
 
-
     def run(self):
         with keyboard.Listener(on_press=self.on_press, on_release=self.on_release) as self.listener:
             self.listener.join()
-
 
     def on_press(self, key):
 
@@ -54,30 +51,27 @@ class Ecoute(Thread):
             if all(k in current for k in COMBINATION[2]):
                 clavier.type(_ecoute[2])
 
-
-
     def on_release(self, key):
         try:
             current.remove(key)
         except KeyError:
             pass
 
-
-
 class PersistentPASTE(MDApp):
+    
     def __init__(self):
-    	MDApp.__init__(self)
-    	with open('gui.kv', encoding='utf-8') as f:
+        MDApp.__init__(self)
+        self.lang = 'en'    	
+        with open('gui.kv', encoding='utf-8') as f:
             self.GUI = Builder.load_string(f.read())
 
-
     def build(self):
-    	self.theme_cls.primary_palette = "Teal"
-    	return self.GUI
-
+        self.theme_cls.primary_palette = "Teal"
+        return self.GUI
 
     def save(self):
         global _ecoute
+        
         for i in range(3):
             _ecoute[i] = self.GUI.ids[f'paste_{i+1}'].text
         with open("__data", "wb") as f:
@@ -95,12 +89,15 @@ class PersistentPASTE(MDApp):
             if btn_num:
                 self.root.ids[f'paste_{btn_num}'].password = not state
                 self.root.ids[f'eye_btn_{btn_num}'].icon = "eye-off" if state else "eye"
-            else :
-                pass 
         except:
             pass
-
-
+    def traduction(self,lang):
+        if self.lang == 'fr':
+            self.root.ids['langue'].icon = "eye-off"
+            self.lang = 'en'
+        elif self.lang == 'en':
+            self.root.ids['langue'].icon = "eye"
+            self.lang = 'fr'  
     def on_start(self):
         if os.path.isfile('__data'):
             with open("__data", "rb") as f:
@@ -110,12 +107,8 @@ class PersistentPASTE(MDApp):
                     for i in range(3):
                         _ecoute[i] = data[i]
                         self.GUI.ids[f'paste_{i+1}'].text = data[i]
-                except: 
-                    pass
-                
-
-
-
+                except:
+                    pass       
 def getPid():
     if os.path.isfile('__pid'):
         with open('__pid', 'rb') as _pid:
@@ -125,12 +118,9 @@ def getPid():
         except Exception as err:
             print(err) 
 
-
 def setPid():
     with open('__pid', 'wb') as _pid:
         pickle.dump(os.getpid(), _pid)
-
-
 
 if __name__ == '__main__':
     getPid()

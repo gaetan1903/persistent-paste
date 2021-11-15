@@ -1,0 +1,17 @@
+{
+    "entrer_texte" : 
+	{
+   		"fr" : "Entrer vos textes à  collez",
+   		"en" : "Enter the text you want to paste"
+	},
+    "text" : 
+	{
+   		"fr" : "Texte",
+   		"en" : "Text"
+	},
+    "enregistrer" : 
+	{
+   		"fr" : "Enregistrer",
+   		"en" : "Save"
+	}
+}
