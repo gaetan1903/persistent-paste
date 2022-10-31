@@ -1,24 +1,15 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 #:import translate utils.translate
-#:import concatenate utils.concatenate
 Screen:
 	BoxLayout:
 		orientation: 'vertical'
-	    MDToolbar:
+	    MDTopAppBar:
 	    	id: toolbar
 	        title : "Persistent PASTE"
-	        elevation : 10
+	        elevation : 3
 	        pos_hint : {'top':1}
-	        right_action_items: [["menu", lambda x: x]]
-			MDIconButton:
-				id: langue										
-				icon: "eye"
-				text : "fr"
-				pos_hint: {"center_x": .5, "center_y": .5}
-				theme_text_color: "Custom"
-				user_font_size: "20sp"
-				text_color: get_color_from_hex('#008080')
-				on_release : app.traduction(app.lang)
+	        right_action_items: 
+				[["flag", lambda x: app.traduction("fr"), "FR", "FR"],]
 
 	    MDNavigationLayout:
 	        x: toolbar.height
@@ -41,7 +32,8 @@ Screen:
 
 
 	                    	MDLabel:
-                                text: translate("entrer_texte",app.lang)
+								id: label
+                                text: translate("entrer_texte", app.lang)
                                 halign: "center"
                                 theme_text_color: "Custom"
                                 text_color: get_color_from_hex('#008080')
@@ -60,7 +52,7 @@ Screen:
 
 			                        MDTextField:
 			                        	id: paste_1
-			                            hint_text: concatenate([translate("text",app.lang) ,1])
+			                            hint_text: f"{translate('text', app.lang)} 1"
 			                            size_hint_x : .75
 										password: True
 
@@ -89,7 +81,7 @@ Screen:
 
 			                        MDTextField:
 			                        	id: paste_2
-			                            hint_text: concatenate([translate("text",app.lang) ,2])
+			                            hint_text: f"{translate('text', app.lang)} 2"
 			                            size_hint_x : .75
 										password: True
 
@@ -117,7 +109,7 @@ Screen:
 
 			                        MDTextField:
 			                        	id: paste_3
-			                            hint_text: concatenate([translate("text",app.lang) ,3])
+			                            hint_text: f"{translate('text', app.lang)} 3"
 			                            size_hint_x : .75
 										password: True
 
@@ -139,6 +131,7 @@ Screen:
 			                        	size_hint_x : .25
 
 	                        MDRaisedButton:
+								id: btn
 	                            text: translate("enregistrer",app.lang)
 	                            md_bg_color: self.theme_cls.primary_color
 	                            pos_hint: {"center_x": .5, "center_y": .5}

@@ -1,17 +1,22 @@
-import os, sys, pickle, signal
+from kivy.lang import Builder
+from threading import Thread
+from pynput.keyboard import Key, Controller
+from pynput import keyboard
+from kivymd.uix.dialog import MDDialog
+from kivymd.app import MDApp
+import os
+import sys
+import pickle
+import signal
 from kivy.config import Config
+
+from utils import translate
 Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'width', '660')
 Config.set('graphics', 'height', '460')
-#--------------------------
-from kivy.lang import Builder 
-from kivymd.app import MDApp
-from kivymd.uix.dialog import MDDialog
-#--------------------------
+# --------------------------
+# --------------------------
 
-from pynput import keyboard
-from pynput.keyboard import Key, Controller
-from threading import Thread
 
 # Le combinaison a voir
 COMBINATION = [
@@ -57,11 +62,12 @@ class Ecoute(Thread):
         except KeyError:
             pass
 
+
 class PersistentPASTE(MDApp):
-    
+
     def __init__(self):
         MDApp.__init__(self)
-        self.lang = 'en'    	
+        self.lang = 'en'
         with open('gui.kv', encoding='utf-8') as f:
             self.GUI = Builder.load_string(f.read())
 
@@ -71,15 +77,15 @@ class PersistentPASTE(MDApp):
 
     def save(self):
         global _ecoute
-        
+
         for i in range(3):
             _ecoute[i] = self.GUI.ids[f'paste_{i+1}'].text
         with open("__data", "wb") as f:
             pickle.dump(_ecoute, f)
 
         MDDialog(
-            title="Succes",
-            text="Texte mise à jour",
+            title=translate("success", self.lang),
+            text=translate("text_updated", self.lang),
             radius=[20, 7, 20, 7],
         ).open()
 
@@ -91,24 +97,34 @@ class PersistentPASTE(MDApp):
                 self.root.ids[f'eye_btn_{btn_num}'].icon = "eye-off" if state else "eye"
         except:
             pass
-    def traduction(self,lang):
-        if self.lang == 'fr':
-            self.root.ids['langue'].icon = "eye-off"
-            self.lang = 'en'
-        elif self.lang == 'en':
-            self.root.ids['langue'].icon = "eye"
-            self.lang = 'fr'  
+
+    def traduction(self, lang):
+        self.lang = lang
+        self.GUI.ids['label'].text = translate("entrer_texte", lang)
+        self.GUI.ids['btn'].text = translate("enregistrer", lang)
+
+        for i in range(1, 4):
+            self.GUI.ids[f"paste_{i}"].hint_text = f"{translate('text', lang)} {i}"
+
+        self.GUI.ids['toolbar'].right_action_items = [
+            ["flag-outline", lambda x: self.traduction("en"), "EN", "EN"]
+            if lang == "fr" else
+            ["flag", lambda x: self.traduction("fr"), "FR", "FR"]
+        ]
+
     def on_start(self):
         if os.path.isfile('__data'):
             with open("__data", "rb") as f:
-                try: 
+                try:
                     data = pickle.load(f)
                     global _ecoute
                     for i in range(3):
                         _ecoute[i] = data[i]
                         self.GUI.ids[f'paste_{i+1}'].text = data[i]
                 except:
-                    pass       
+                    pass
+
+
 def getPid():
     if os.path.isfile('__pid'):
         with open('__pid', 'rb') as _pid:
@@ -116,11 +132,13 @@ def getPid():
         try:
             os.kill(pid, signal.SIGINT)
         except Exception as err:
-            print(err) 
+            print(err)
+
 
 def setPid():
     with open('__pid', 'wb') as _pid:
         pickle.dump(os.getpid(), _pid)
+
 
 if __name__ == '__main__':
     getPid()

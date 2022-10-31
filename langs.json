@@ -13,5 +13,15 @@
 	{
    		"fr" : "Enregistrer",
    		"en" : "Save"
+	},
+	"success":
+	{
+		"fr" : "Succès",
+		"en" : "Success"
+	},
+	"text_updated":
+	{
+		"fr" : "Texte mis à jour",
+		"en" : "Text has been updated"
 	}
 }
