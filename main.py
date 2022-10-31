@@ -84,8 +84,8 @@ class PersistentPASTE(MDApp):
             pickle.dump(_ecoute, f)
 
         MDDialog(
-            title="Succes",
-            text="Texte mise à jour",
+            title=translate("success", self.lang),
+            text=translate("text_updated", self.lang),
             radius=[20, 7, 20, 7],
         ).open()
 
@@ -99,7 +99,7 @@ class PersistentPASTE(MDApp):
             pass
 
     def traduction(self, lang):
-        # self.lang = lang
+        self.lang = lang
         self.GUI.ids['label'].text = translate("entrer_texte", lang)
         self.GUI.ids['btn'].text = translate("enregistrer", lang)
 
